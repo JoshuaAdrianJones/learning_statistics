@@ -3,8 +3,8 @@ import os
 
 import pytest
 
-from make_data import generate_csv
-from structures import Respondent, Respondents
+from .make_data import generate_csv
+from .structures import Respondent, Respondents
 
 
 @pytest.fixture

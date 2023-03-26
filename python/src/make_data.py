@@ -11,4 +11,5 @@ def generate_csv(filename: str, num_rows: int) -> None:
             writer.writerow([str(uuid.uuid4()), random.randint(0, 1000)])
 
 
-generate_csv("data.csv", 1000)
+if __name__ == "__main__":
+    generate_csv("data.csv", 1000)

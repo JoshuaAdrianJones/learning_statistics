@@ -1,4 +1,4 @@
-from stats import calculate_iqr, find_outliers, quartiles
+from .stats import calculate_iqr, find_outliers, quartiles
 
 
 def test_quartiles():
