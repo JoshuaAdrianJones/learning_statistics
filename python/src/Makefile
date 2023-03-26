@@ -1,11 +1,11 @@
 # Run all targets
 .PHONY: all
-all: black isort pytest mypy flake8
+all: black isort pytest flake8 pylint
 
 # Run black
 .PHONY: black
 black:
-	black .
+	black --line-length 90 .
 
 # Run isort with the black profile
 .PHONY: isort
@@ -25,4 +25,9 @@ mypy:
 # Run flake8
 .PHONY: flake8
 flake8:
-	flake8
+	flake8 *.py
+
+# run pylint
+.PHONY: pylint
+pylint:
+	pylint --rcfile=.pylintrc *.py
