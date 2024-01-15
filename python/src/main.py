@@ -18,16 +18,16 @@ from stats import (
 from structures import Respondent
 
 
-def numerical_values_generator(respondents: List[Respondent]):
+def numerical_values_generator(respondents: List[Respondent]) -> float:
     for respondent in respondents:
         yield respondent.numerical_value
 
 
-def distance(point1, point2):
+def distance(point1: float, point2: float) -> float:
     return math.sqrt((point1 - point2) ** 2)
 
 
-def k_means_clustering(data, k, max_iterations=100):
+def k_means_clustering(data: list[float], k: int, max_iterations: int = 100):
     centroids = random.sample(data, k)
     clusters = [[] for _ in range(k)]
 
@@ -54,7 +54,7 @@ def k_means_clustering(data, k, max_iterations=100):
     return clusters, centroids
 
 
-def within_cluster_sum_of_squares(data, clusters, centroids):
+def within_cluster_sum_of_squares(clusters, centroids):
     wcss = 0
     for i in range(len(clusters)):
         cluster_sum = 0
@@ -65,8 +65,8 @@ def within_cluster_sum_of_squares(data, clusters, centroids):
 
 
 if __name__ == "__main__":
-    data = read_csv("data.csv")
-    numbers = list(numerical_values_generator(data.respondents))
+    data_from_file = read_csv("data.csv")
+    numbers = list(numerical_values_generator(data_from_file.respondents))
     analysis_types = [
         mean,
         median,
@@ -80,18 +80,12 @@ if __name__ == "__main__":
     for analysis_type in analysis_types:
         print(f"{analysis_type.__name__} : {analysis_type(numbers)}")
 
-    # Generate sample data
-    data = (
-        [random.uniform(0, 6) for _ in range(30)]
-        + [random.uniform(4, 8) for _ in range(30)]
-        + [random.uniform(9, 10) for _ in range(30)]
-    )
-
+    data = numbers
     # Determine optimal number of clusters using WCSS
     wcss_values = []
     for k in range(1, 11):
         clusters, centroids = k_means_clustering(data, k)
-        wcss = within_cluster_sum_of_squares(data, clusters, centroids)
+        wcss = within_cluster_sum_of_squares(clusters, centroids)
         wcss_values.append(wcss)
 
     # Plot WCSS vs number of clusters and data vs index in the same window
@@ -111,7 +105,7 @@ if __name__ == "__main__":
 
     # Determine number of clusters
     optimal_k = wcss_values.index(min(wcss_values)) + 1
-    optimal_k = 5
+    # optimal_k = 5
     print(f"Optimal number of clusters: {optimal_k}")
 
     # Cluster data
