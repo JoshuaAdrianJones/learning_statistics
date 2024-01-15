@@ -34,10 +34,9 @@ def test_generate_csv():
 
 
 def test_read_csv(data: Respondents):
-    respondents = data
-    assert isinstance(respondents, Respondents)
-    assert len(respondents.respondents) == 10
+    assert isinstance(data, Respondents)
+    assert len(data.respondents) == 10
 
-    for i, respondent in enumerate(respondents.respondents):
-        assert respondent.respondent_id == str(i)
-        assert respondent.numerical_value == i * 100
+    for i, item in enumerate(data.respondents):
+        assert item.respondent_id == str(i)
+        assert item.numerical_value == i * 100
